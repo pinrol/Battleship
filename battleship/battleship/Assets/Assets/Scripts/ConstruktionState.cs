@@ -38,8 +38,10 @@ namespace Assets.Scripts
 			
 			
 			ComputerShipPlacement ();
-			
+			Debug.Break ();
 			foreach(GameObject ship in gameObjectList){
+				Debug.Log(ship.name);
+				Debug.Break();
 				ship.gameObject.GetComponent<PlaceShips>().allowPlacement = true;
 			}
 

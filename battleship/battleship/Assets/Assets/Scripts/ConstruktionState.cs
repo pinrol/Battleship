@@ -51,7 +51,7 @@ namespace Assets.Scripts
 		private void  ComputerShips(){
 
 			validTilesPc = GameObject.Find ("Boards/Board2").GetComponent<Board> ().tilesP2;
-			GameObject[] PcSubmarine = GameObject.FindGameObjectsWithTag ("PcSubmarine");
+
 			/*GameObject[] PcDestroyer = GameObject.FindGameObjectsWithTag ("PcDestroyer");
 			GameObject[] PcCruiser = GameObject.FindGameObjectsWithTag ("PcCruiser");
 			GameObject[] PcBattleship = GameObject.FindGameObjectsWithTag ("PcBattleship");
@@ -61,6 +61,8 @@ namespace Assets.Scripts
 			//}else{
 			//	endTile = GameObject.Find(this.name+"/end").transform.position;
 			//}*/
+
+			GameObject[] PcSubmarine = GameObject.FindGameObjectsWithTag ("PcSubmarine");
 
 			int listNumber;
 			Vector2 randomisedTile;
@@ -77,14 +79,14 @@ namespace Assets.Scripts
 			int RandomIsHoriz;
 			Vector2 border = new Vector2 (0, 0);
 			int sum = 0;
-			bool tempBool;
-			int tempX;
-			int tempY;
+			bool isActive;
+
+
 			//boardSize = GameObject.Find("Boards/Board2").GetComponent<Board>().size - 1;
-			Debug.Log ("boardSize=" + boardSize); 
+			//Debug.Log ("boardSize=" + boardSize); 
 
 			foreach (GameObject ship in PcSubmarine) {
-				Debug.Log(" boardSize in foreach" + boardSize);
+				//Debug.Log(" boardSize in foreach" + boardSize);
 				checkLength = ship.GetComponent<PlaceShips>().shipSize - 1;
 
 				RandomIsHoriz = (int) Mathf.Round( Random.Range(0, 2));
@@ -105,35 +107,46 @@ namespace Assets.Scripts
 					for(int y = 0; y <= boardSize - border.y ; y++){
 //						Debug.Log("x=" + x + ", y=" + y );
 						//tempObject =  GameObject.Find(x + " , " + y);
-						if(ship.GetComponent<PlaceShips>().isHoriz){
-							for(int index = 0; index <= ship.GetComponent<PlaceShips>().shipSize; index++){
-								tempX = x + index;
-								//Debug.Log(GameObject.Find("Boards/Board2/" + tempX + " , " + y).name);
-								////Debug.Log(tempX + " < x, y > " + y); 
-								tempBool = GameObject.Find("Boards/Board2/" + tempX + " , " + y).GetComponent<Tile>().active;
 
-								if (tempBool){
-									sum++;
+						if(true) {
+						//if(ship.GetComponent<PlaceShips>().isHoriz){
+							bool isValidPlacement = true;
+							for(int index = 0; index <= ship.GetComponent<PlaceShips>().shipSize; index++){
+
+								int tempX = x + index;
+								//Debug.Log(GameObject.Find("Boards/Board2/" + tempX + " , " + y).name);
+								Debug.Log(tempX + " < x, y > " + y); 
+								isActive = GameObject.Find("Boards/Board2/" + tempX + " , " + y).GetComponent<Tile>().active;
+
+								if (!isActive){
+									//sum++;
+									isValidPlacement = false;
 								} 
-								else{
-									sum = 0;
-								}
+								//else{
+								//	sum = 0;
+								//}
+								/*
 								if (sum == ship.GetComponent<PlaceShips>().shipSize){
 									Vector2 insert = new Vector2(x, y);
 									Debug.Log("adding stuff to variableTiles");
 									variableValidTiles.Add (insert);
-									Debug.Log(variableValidTiles.Count + " in sum == stuff");
+//									Debug.Log(variableValidTiles.Count + " in sum == stuff");
 									sum = 0;
-								}
+								}*/
+
+
+							}
+							if(isValidPlacement) {
+								variableValidTiles.Add (new Vector2(x, y));
 							}
 						}else{
-							for(int index = 0; index <= checkLength; index++){
+							for(int index = 0; index <= ship.GetComponent<PlaceShips>().shipSize; index++){
 								 
-								tempY = y + index;
-								////Debug.Log(x + " < x, y > " + tempY);
-								tempBool = GameObject.Find("Boards/Board2/" + x + " , " + tempY).GetComponent<Tile>().active;
+								int tempY = y + index;
+								Debug.Log(x + " < x, y > " + tempY);
+								isActive = GameObject.Find("Boards/Board2/" + x + " , " + tempY).GetComponent<Tile>().active;
 
-								if (tempBool){
+								if (isActive){
 									sum++;
 								}else{
 									sum = 0;
@@ -141,7 +154,8 @@ namespace Assets.Scripts
 								if (sum == ship.GetComponent<PlaceShips>().shipSize){
 									Vector2 insert = new Vector2(x, y);
 									variableValidTiles.Add (insert);
-									Debug.Log(variableValidTiles.Count + " in sum == stuff");
+//									Debug.Log(variableValidTiles.Count + " in sum == stuff");
+									sum = 0;
 								}
 							}
 						}
@@ -205,13 +219,13 @@ namespace Assets.Scripts
 			if(isHoriz) {
 				loopXstart = (int)Mathf.Max(15, randomisedTile.x - 1);
 				loopYstart = (int)Mathf.Max(0, randomisedTile.y - 1);
-				loopXend   = (int)Mathf.Min(boardSize - 1 + 15, endTile.x + 1);
-				loopYend   = (int)Mathf.Min(boardSize - 1, endTile.y + 1);
+				loopXend   = (int)Mathf.Min(boardSize + 15, endTile.x + 1);
+				loopYend   = (int)Mathf.Min(boardSize, endTile.y + 1);
 			} else {
 				loopXstart = (int)Mathf.Max(15, endTile.x - 1);
 				loopYstart = (int)Mathf.Max(0, endTile.y - 1);
-				loopXend   = (int)Mathf.Min(boardSize - 1 + 15, startTile.x + 1);
-				loopYend   = (int)Mathf.Min(boardSize - 1, startTile.y + 1);
+				loopXend   = (int)Mathf.Min(boardSize + 15, startTile.x + 1);
+				loopYend   = (int)Mathf.Min(boardSize, startTile.y + 1);
 			}
 			
 			

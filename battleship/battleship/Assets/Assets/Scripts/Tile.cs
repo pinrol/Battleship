@@ -9,8 +9,10 @@ public class Tile : Board{
 	public bool end = false;
 
 
+
 	void Start () {
 		audio = GetComponent<AudioSource>();
+		active = true;
 	}
 	
 

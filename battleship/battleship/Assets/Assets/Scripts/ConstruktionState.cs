@@ -81,123 +81,90 @@ namespace Assets.Scripts
 			int sum = 0;
 			bool isActive;
 
-
+			 
 			//boardSize = GameObject.Find("Boards/Board2").GetComponent<Board>().size - 1;
 			//Debug.Log ("boardSize=" + boardSize); 
-
+			int count = 0;
+			Debug.Log (PcSubmarine.Length + " shoop da woop");
 			foreach (GameObject ship in PcSubmarine) {
 				//Debug.Log(" boardSize in foreach" + boardSize);
-				checkLength = ship.GetComponent<PlaceShips>().shipSize - 1;
 
-				RandomIsHoriz = (int) Mathf.Round( Random.Range(0, 2));
+				Debug.Log(count++ + " count");
+				Debug.Log(ship.name + " shipname");
+				checkLength = ship.GetComponent<PlaceShips> ().shipSize - 1;
+				//checkLength = 0;
+
+				RandomIsHoriz = (int)Mathf.Round (Random.Range (0, 2));
 			
 
-				if(RandomIsHoriz == 0){
-					ship.GetComponent<PlaceShips>().isHoriz = false;
-					border = new Vector2(0 , checkLength );
-				}else{
-					border = new Vector2(checkLength, 0);
+				if (RandomIsHoriz == 0) {
+					ship.GetComponent<PlaceShips> ().isHoriz = false;
+					border = new Vector2 (0, checkLength);
+				} else {
+					border = new Vector2 (checkLength, 0);
 				}
 
 
 
-				Debug.Log("for (int x = 15; x < " + boardSize + " + 15 - "+ border.x + "; x++)");
-				for (int x = 15; x < boardSize + 15 - border.x; x++){
+				Debug.Log ("for (int x = 15; x < " + boardSize + " + 15 - " + border.x + "; x++)");
+				for (int x = 15; x < boardSize + 15 - border.x; x++) {
 					//Debug.Log("this is x: " + x);
-					for(int y = 0; y <= boardSize - border.y ; y++){
+					for (int y = 0; y <= boardSize - border.y; y++) {
 //						Debug.Log("x=" + x + ", y=" + y );
 						//tempObject =  GameObject.Find(x + " , " + y);
 
-						if(true) {
-						//if(ship.GetComponent<PlaceShips>().isHoriz){
+						if (true) {
+							//if(ship.GetComponent<PlaceShips>().isHoriz){
 							bool isValidPlacement = true;
-							for(int index = 0; index <= ship.GetComponent<PlaceShips>().shipSize; index++){
+							for (int index = 0; index <= ship.GetComponent<PlaceShips>().shipSize; index++) {
 
 								int tempX = x + index;
 								//Debug.Log(GameObject.Find("Boards/Board2/" + tempX + " , " + y).name);
-								Debug.Log(tempX + " < x, y > " + y); 
-								isActive = GameObject.Find("Boards/Board2/" + tempX + " , " + y).GetComponent<Tile>().active;
+//								Debug.Log (tempX + " < x, y > " + y); 
+								isActive = GameObject.Find ("Boards/Board2/" + tempX + " , " + y).GetComponent<Tile> ().active;
 
-								if (!isActive){
-									//sum++;
+								if (!isActive) {
+									isValidPlacement = false;
+								} 							
+							}
+							if (isValidPlacement) {
+								variableValidTiles.Add (new Vector2 (x, y));
+							}
+						} else {
+							bool isValidPlacement = true;
+							for (int index = 0; index <= ship.GetComponent<PlaceShips>().shipSize; index++) {
+
+								int tempY = y + index;
+			//					Debug.Log (x + " < x, y > " + tempY);
+								isActive = GameObject.Find ("Boards/Board2/" + x + " , " + tempY).GetComponent<Tile> ().active;
+
+								if (!isActive) {
 									isValidPlacement = false;
 								} 
-								//else{
-								//	sum = 0;
-								//}
-								/*
-								if (sum == ship.GetComponent<PlaceShips>().shipSize){
-									Vector2 insert = new Vector2(x, y);
-									Debug.Log("adding stuff to variableTiles");
-									variableValidTiles.Add (insert);
-//									Debug.Log(variableValidTiles.Count + " in sum == stuff");
-									sum = 0;
-								}*/
-
-
 							}
-							if(isValidPlacement) {
-								variableValidTiles.Add (new Vector2(x, y));
-							}
-						}else{
-							for(int index = 0; index <= ship.GetComponent<PlaceShips>().shipSize; index++){
-								 
-								int tempY = y + index;
-								Debug.Log(x + " < x, y > " + tempY);
-								isActive = GameObject.Find("Boards/Board2/" + x + " , " + tempY).GetComponent<Tile>().active;
-
-								if (isActive){
-									sum++;
-								}else{
-									sum = 0;
-								}
-								if (sum == ship.GetComponent<PlaceShips>().shipSize){
-									Vector2 insert = new Vector2(x, y);
-									variableValidTiles.Add (insert);
-//									Debug.Log(variableValidTiles.Count + " in sum == stuff");
-									sum = 0;
-								}
+							if (isValidPlacement) {
+								variableValidTiles.Add (new Vector2 (x, y));
 							}
 						}
 					}
 				}
-
-
-
-					//for (int x = loopXstart; x <= loopXend; x++) {
-					//for (int y = loopYstart; y <= loopYend; y++) {*/
-					
-					/*if(isHoriz) //{
-						loopXstart = (int)Mathf.Max(15, randomisedTile.x - 1);
-						loopYstart = (int)Mathf.Max(0, randomisedTile.y - 1);
-						loopXend   = (int)Mathf.Min(boardSize - 1 + 15, endTile.x + 1);
-						loopYend   = (int)Mathf.Min(boardSize - 1, endTile.y + 1);
-					//} else {
-						loopXstart = (int)Mathf.Max(15, endTile.x - 1);
-						loopYstart = (int)Mathf.Max(0, endTile.y - 1);
-						loopXend   = (int)Mathf.Min(boardSize - 1 + 15, startTile.x + 1);
-						loopYend   = (int)Mathf.Min(boardSize - 1, startTile.y + 1);
-					//}
-					*/
-
-
-					
+			
 
 				listNumber = Random.Range (0, variableValidTiles.Count);
 
-				randomisedTile = variableValidTiles[listNumber];
-				Debug.Log("this is length of variableTiles: " + variableValidTiles.Count);
+				randomisedTile = variableValidTiles [listNumber];
+				Debug.Log ("this is length of variableTiles: " + variableValidTiles.Count);
 
-				tempObject = GameObject.Find (variableValidTiles[listNumber].x + " , " + variableValidTiles[listNumber].y);
-				ComputerShipPlacement(ship, tempObject, randomisedTile, listNumber);
-				variableValidTiles.Clear();
+				tempObject = GameObject.Find (variableValidTiles [listNumber].x + " , " + variableValidTiles [listNumber].y);
+				ComputerShipPlacement (ship, tempObject, randomisedTile, listNumber);
+				variableValidTiles.Clear ();
 			}
 
 		}
 		
 
 		
-		private void ComputerShipPlacement( GameObject ship, GameObject tempObject, Vector2 randomisedTile, int listNumber){
+	 	private void ComputerShipPlacement( GameObject ship, GameObject tempObject, Vector2 randomisedTile, int listNumber){
 			ship.gameObject.transform.position = tempObject.transform.position;
 
 			if (ship.CompareTag("PcSubmarine")) {

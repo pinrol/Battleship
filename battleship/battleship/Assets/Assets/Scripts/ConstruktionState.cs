@@ -85,12 +85,11 @@ namespace Assets.Scripts
 			//boardSize = GameObject.Find("Boards/Board2").GetComponent<Board>().size - 1;
 			//Debug.Log ("boardSize=" + boardSize); 
 			int count = 0;
-			Debug.Log (PcSubmarine.Length + " shoop da woop");
 			foreach (GameObject ship in PcSubmarine) {
 				//Debug.Log(" boardSize in foreach" + boardSize);
 
-				Debug.Log(count++ + " count");
-				Debug.Log(ship.name + " shipname");
+//				Debug.Log(count++ + " count");
+//				Debug.Log(ship.name + " shipname");
 				checkLength = ship.GetComponent<PlaceShips> ().shipSize - 1;
 				//checkLength = 0;
 
@@ -153,7 +152,7 @@ namespace Assets.Scripts
 				listNumber = Random.Range (0, variableValidTiles.Count);
 
 				randomisedTile = variableValidTiles [listNumber];
-				Debug.Log ("this is length of variableTiles: " + variableValidTiles.Count);
+				//Debug.Log ("this is length of variableTiles: " + variableValidTiles.Count);
 
 				tempObject = GameObject.Find (variableValidTiles [listNumber].x + " , " + variableValidTiles [listNumber].y);
 				ComputerShipPlacement (ship, tempObject, randomisedTile, listNumber);

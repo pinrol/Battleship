@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savegame>
+  <players>
+    <player id="human" score="0" />
+    <player id="computer" score="0" />
+  </players>
+  <boards>
+    <board id="human">
+      <ships>
+        <ship name="BattleShip" x="4" y="12" ishoriz="0" />
+        <ship name="Submarine" x="8" y="5" ishoriz="0" />
+        <ship name="Destroyer3 " x="2" y="8" ishoriz="0" />
+        <ship name="Cruiser2" x="6" y="8" ishoriz="0" />
+        <ship name="Crusier1" x="3" y="4" ishoriz="0" />
+        <ship name="BattleShip (1)" x="2" y="6" ishoriz="0" />
+        <ship name="Destroyer1 " x="6" y="1" ishoriz="0" />
+        <ship name="Submarine" x="9" y="2" ishoriz="0" />
+        <ship name="Submarine" x="2" y="1" ishoriz="0" />
+        <ship name="Submarine" x="0" y="8" ishoriz="0" />
+        <ship name="Destroyer2 " x="0" y="4" ishoriz="0" />
+      </ships>
+      <shots>
+        <shot x="0" y="0" />
+        <shot x="0" y="1" />
+        <shot x="0" y="2" />
+        <shot x="1" y="0" />
+        <shot x="1" y="1" />
+        <shot x="1" y="2" />
+        <shot x="2" y="0" />
+        <shot x="2" y="1" />
+        <shot x="2" y="2" />
+      </shots>
+    </board>
+    <board id="computer">
+      <ships>
+        <ship name="Submarine2" x="0" y="0" ishoriz="0" />
+        <ship name="Submarine4" x="0" y="0" ishoriz="0" />
+        <ship name="Submarine1" x="0" y="0" ishoriz="0" />
+        <ship name="Submarine3" x="0" y="0" ishoriz="0" />
+        <ship name="Destroyer2" x="0" y="0" ishoriz="0" />
+        <ship name="Destroyer1" x="0" y="0" ishoriz="0" />
+        <ship name="Destroyer3" x="0" y="0" ishoriz="0" />
+        <ship name="Cruiser1" x="0" y="0" ishoriz="0" />
+        <ship name="Crusier2" x="0" y="0" ishoriz="0" />
+        <ship name="BattleShip" x="0" y="0" ishoriz="0" />
+      </ships>
+      <shots>
+        <shot x="0" y="0" />
+        <shot x="0" y="1" />
+        <shot x="0" y="2" />
+        <shot x="1" y="0" />
+        <shot x="1" y="1" />
+        <shot x="1" y="2" />
+        <shot x="2" y="0" />
+        <shot x="2" y="1" />
+        <shot x="2" y="2" />
+      </shots>
+    </board>
+  </boards>
+</savegame>

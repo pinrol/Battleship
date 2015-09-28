@@ -59,8 +59,12 @@ public class xmlManager : MonoBehaviour
 			string shipname = thisShip.name;
 			int xpos = (int)thisShip.transform.position.x;
 			int ypos = (int)thisShip.transform.position.y;
-			int isHoriz = (int)thisShip.GetComponent<PlaceShips>().isHoriz;
-			boardHuman.Element("ships").Add (new XElement ("ship", new XAttribute("name",shipname), new XAttribute("x",xpos), new XAttribute("y",ypos), new XAttribute("ishoriz",0)));
+            int isHoriz = 0;
+            if (thisShip.GetComponent<PlaceShips>().isHoriz){
+                isHoriz = 1;    
+            }
+			
+			boardHuman.Element("ships").Add (new XElement ("ship", new XAttribute("name",shipname), new XAttribute("x",xpos), new XAttribute("y",ypos), new XAttribute("isHoriz",isHoriz)));
 		}
 		//OLIVER: lägg ut koordinaterna från skjutna rutor
 		for(int x=0; x < 3; x++) {
@@ -72,7 +76,17 @@ public class xmlManager : MonoBehaviour
 		foreach (GameObject[] PcList in PcLists) {
 			foreach(GameObject Pcship in PcList){
 				string shipname = Pcship.name;
-				boardComputer.Element("ships").Add (new XElement ("ship", new XAttribute("name",shipname), new XAttribute("x",0), new XAttribute("y",0), new XAttribute("ishoriz",0)));
+
+                int xpos = (int)Pcship.transform.position.x;
+                int ypos = (int)Pcship.transform.position.y;
+                int isHoriz = 0;
+                if (Pcship.GetComponent<PlaceShips>().isHoriz)
+                {
+                    isHoriz = 1;
+                }
+
+
+                boardComputer.Element("ships").Add (new XElement ("ship", new XAttribute("name",shipname), new XAttribute("x",xpos), new XAttribute("y",ypos), new XAttribute("isHoriz",isHoriz)));
 
 			}
 		}
@@ -91,31 +105,54 @@ public class xmlManager : MonoBehaviour
 	}
 
 	public static void LoadGame (string fileName) {
-		string[] shiplist={"submarine","destroyer","cruiser","battleship"};
+        Debug.Log("Load Game");
+		
 
 		XDocument xdoc = XDocument.Load (fileName);
+        //Debug.Log(xdoc.ToString());
 
-		// scores and boards
-		string[] actors = {"human","computer"};
-		foreach (string user_id in actors) {
-			int score = Int32.Parse (xdoc.XPathSelectElement ("//players/player[@id='" + user_id + "']").Attribute ("score").Value);
-			Console.WriteLine ("id=" + user_id + ", score=" + score);
-			//foreach (string shiptype in shiplist) {
-				foreach (XElement childElem in xdoc.XPathSelectElements("//boards/board[@id='" + user_id + "']/ships/ship")) {
-					string shipname = childElem.Attribute ("name").Value; 
-					int x = Int32.Parse (childElem.Attribute ("x").Value);
-					int y = Int32.Parse (childElem.Attribute ("y").Value);
-					bool isHoriz = (Int32.Parse (childElem.Attribute ("y").Value) == 1);
-					Console.WriteLine ("shipname=" + shipname + ", x=" + x + ", y=" + y + ", isHoriz=" + isHoriz);
-				}
-			//}
-		}
+        //XElement xp = xdoc.XPathSelectElement("//savegame/players/player[@id='human']");
+        
+        //Debug.Log(xp.ToString());
 
-		// shots
-		foreach (XElement childElem in xdoc.XPathSelectElements("//shot")) {
+        // scores and boards
+        //string[] actors = {"human","computer"};
+        //foreach (string user_id in actors)
+        //{
+        foreach(XElement xboard in xdoc.Elements("savegame").Elements("boards").Elements("board")) {
+            string board_id = xboard.Attribute("id").Value;
+            foreach(XElement xship in xboard.Elements("ships").Elements("ship") ) {
+                Debug.Log("board_id=" + board_id + 
+                        ", name=" + xship.Attribute("name").Value +
+                        ", x=" + xship.Attribute("x").Value +
+                        ", y=" + xship.Attribute("y").Value +
+                        ", isHoriz=" + xship.Attribute("isHoriz").Value);
+            }
+        }
+        
+        //}
+            /*
+            foreach (string user_id in actors) {
+                //int score = int.Parse (xdoc.XPathSelectElement ("//players/player[@id='" + user_id + "']").Attribute ("score").Value);
+                //Debug.Log("id=" + user_id + ", score=" + score);
+                //foreach (string shiptype in shiplist) {
+                //foreach (XElement childElem in xdoc.XPathSelectElements("//boards/board[@id='" + user_id + "']/ships/ship")) {
+                foreach (XElement childElem in xdoc.XPathSelectElements("//boards/board")) {
+                        string shipname = childElem.Attribute ("name").Value; 
+                        int x = Int32.Parse (childElem.Attribute ("x").Value);
+                        int y = Int32.Parse (childElem.Attribute ("y").Value);
+                        bool isHoriz = (Int32.Parse (childElem.Attribute ("y").Value) == 1);
+                        Debug.Log("shipname=" + shipname + ", x=" + x + ", y=" + y + ", isHoriz=" + isHoriz);
+                    }
+                //}
+
+            }
+            */
+            // shots
+            foreach (XElement childElem in xdoc.XPathSelectElements("//shot")) {
 			int x = Int32.Parse (childElem.Attribute ("x").Value);
 			int y = Int32.Parse (childElem.Attribute ("y").Value);
-			Console.WriteLine ("shot: x=" + x + ", y=" + y);
+			Debug.Log("shot: x=" + x + ", y=" + y);
 		}
 	}
 

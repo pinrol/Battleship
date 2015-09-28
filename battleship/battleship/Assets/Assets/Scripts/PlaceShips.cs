@@ -80,8 +80,9 @@ public class PlaceShips : MonoBehaviour {
 			Vector2 tempV2 = mouseObject.transform.position;
 			mouseObject.transform.position = new Vector2(Mathf.Round(tempV2.x),Mathf.Round(tempV2.y)); 
 			GameObject tempObject = GameObject.Find(mouseObject.transform.position.x + " , " + mouseObject.transform.position.y);
-			if(this.name == "Submarine"){
-				endTile = this.transform.position;
+			if(this.name == "Submarine1" || this.name == "Submarine2" || this.name == "Submarine3" || this.name == "Submarine4")
+            {
+                endTile = this.transform.position;
 			}else{
 				endTile = GameObject.Find(this.name+"/end").transform.position;
 			}

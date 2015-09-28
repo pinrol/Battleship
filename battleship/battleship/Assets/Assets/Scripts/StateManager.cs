@@ -21,14 +21,15 @@ public class StateManager : MonoBehaviour {
 			activeState.StateUpdate ();
 		}
 		if (Input.GetKeyDown("s")) {
-			//GameObject xxx = GameObject.Find ("xmlManager");
-			//xxx.GetComponent<
-			//xxx.gameObject.GetComponent<xmlManager>().
 			Debug.Log("input s");
 			xmlManager.SaveGame("savegame.xml");
 		}
-
-		Debug.Log (" in statemanager update");
+        if (Input.GetKeyDown("l"))
+        {
+            Debug.Log("input l");
+            xmlManager.LoadGame("savegame.xml");
+        }
+        Debug.Log (" in statemanager update");
 	}
 	
 	public void SwitchState(IStateBase newState) {

@@ -109,19 +109,23 @@ public class xmlManager : MonoBehaviour
 		
 
 		XDocument xdoc = XDocument.Load (fileName);
-        //Debug.Log(xdoc.ToString());
-
-        //XElement xp = xdoc.XPathSelectElement("//savegame/players/player[@id='human']");
         
-        //Debug.Log(xp.ToString());
-
-        // scores and boards
-        //string[] actors = {"human","computer"};
-        //foreach (string user_id in actors)
-        //{
         foreach(XElement xboard in xdoc.Elements("savegame").Elements("boards").Elements("board")) {
             string board_id = xboard.Attribute("id").Value;
             foreach(XElement xship in xboard.Elements("ships").Elements("ship") ) {
+
+                GameObject ship = GameObject.Find(xship.Attribute("name").Value);
+                int x = Convert.ToInt32(xship.Attribute("x").Value);
+                int y = Convert.ToInt32(xship.Attribute("y").Value);
+                ship.gameObject.transform.position =new Vector3( x, y, 0f);
+
+                if(xship.Attribute("isHoriz").Value == "0") {
+                    var rotation = Quaternion.LookRotation(ship.transform.position);
+                    rotation = Quaternion.Euler(0, 0, -90);
+                    ship.transform.rotation = Quaternion.Slerp(ship.transform.rotation, rotation, Time.deltaTime * 90);
+                }
+
+
                 Debug.Log("board_id=" + board_id + 
                         ", name=" + xship.Attribute("name").Value +
                         ", x=" + xship.Attribute("x").Value +
@@ -130,24 +134,7 @@ public class xmlManager : MonoBehaviour
             }
         }
         
-        //}
-            /*
-            foreach (string user_id in actors) {
-                //int score = int.Parse (xdoc.XPathSelectElement ("//players/player[@id='" + user_id + "']").Attribute ("score").Value);
-                //Debug.Log("id=" + user_id + ", score=" + score);
-                //foreach (string shiptype in shiplist) {
-                //foreach (XElement childElem in xdoc.XPathSelectElements("//boards/board[@id='" + user_id + "']/ships/ship")) {
-                foreach (XElement childElem in xdoc.XPathSelectElements("//boards/board")) {
-                        string shipname = childElem.Attribute ("name").Value; 
-                        int x = Int32.Parse (childElem.Attribute ("x").Value);
-                        int y = Int32.Parse (childElem.Attribute ("y").Value);
-                        bool isHoriz = (Int32.Parse (childElem.Attribute ("y").Value) == 1);
-                        Debug.Log("shipname=" + shipname + ", x=" + x + ", y=" + y + ", isHoriz=" + isHoriz);
-                    }
-                //}
-
-            }
-            */
+        
             // shots
             foreach (XElement childElem in xdoc.XPathSelectElements("//shot")) {
 			int x = Int32.Parse (childElem.Attribute ("x").Value);

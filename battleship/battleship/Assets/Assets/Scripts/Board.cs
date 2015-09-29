@@ -16,22 +16,13 @@ public class Board : MonoBehaviour {
 	public List<Vector2> tilesP2 = new List<Vector2>();
 	public Vector2 position;
 	public bool active = true;
-
-
-
-
-
-	void Start () {
- 
-
-	}
-
-
+    
+    
 	public void setup(){
 
 		int sizex = size + xpos;
 		int sizey = size + ypos;
-		int counter = 0;
+		
 
 
 		for (int x = xpos; x < sizex; x++) {

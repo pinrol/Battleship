@@ -7,16 +7,16 @@
   <boards>
     <board id="human">
       <ships>
-        <ship name="BattleShip (1)" x="3" y="9" isHoriz="1" />
-        <ship name="Submarine4" x="4" y="6" isHoriz="1" />
-        <ship name="Destroyer3 " x="1" y="4" isHoriz="1" />
-        <ship name="Cruiser2" x="2" y="2" isHoriz="1" />
-        <ship name="Crusier1" x="6" y="2" isHoriz="1" />
-        <ship name="Destroyer1 " x="9" y="7" isHoriz="0" />
-        <ship name="Submarine3" x="8" y="4" isHoriz="1" />
-        <ship name="Submarine1" x="7" y="7" isHoriz="1" />
-        <ship name="Submarine2" x="1" y="7" isHoriz="1" />
-        <ship name="Destroyer2 " x="6" y="5" isHoriz="0" />
+        <ship name="Submarine4" x="9" y="3" isHoriz="1" />
+        <ship name="Destroyer3" x="8" y="6" isHoriz="0" />
+        <ship name="Cruiser2" x="6" y="9" isHoriz="1" />
+        <ship name="Crusier1" x="1" y="9" isHoriz="1" />
+        <ship name="Destroyer1" x="1" y="3" isHoriz="1" />
+        <ship name="BattleShip1" x="2" y="6" isHoriz="1" />
+        <ship name="Submarine3" x="0" y="6" isHoriz="1" />
+        <ship name="Submarine1" x="6" y="0" isHoriz="1" />
+        <ship name="Submarine2" x="6" y="4" isHoriz="1" />
+        <ship name="Destroyer2" x="4" y="4" isHoriz="0" />
       </ships>
       <shots>
         <shot x="0" y="0" />
@@ -32,13 +32,13 @@
     </board>
     <board id="computer">
       <ships>
-        <ship name="Submarine2" x="16" y="9" isHoriz="1" />
-        <ship name="Submarine4" x="23" y="4" isHoriz="0" />
-        <ship name="Submarine1" x="20" y="6" isHoriz="1" />
-        <ship name="Submarine3" x="21" y="2" isHoriz="1" />
-        <ship name="Cruiser2" x="3" y="23" isHoriz="1" />
-        <ship name="Crusier1" x="0" y="23" isHoriz="1" />
-        <ship name="BattleShip" x="0" y="21" isHoriz="1" />
+        <ship name="PcSubmarine2" x="15" y="5" isHoriz="0" />
+        <ship name="PcSubmarine4" x="22" y="0" isHoriz="0" />
+        <ship name="PcSubmarine1" x="16" y="2" isHoriz="0" />
+        <ship name="PcSubmarine3" x="16" y="7" isHoriz="0" />
+        <ship name="PcCruiser2" x="3" y="23" isHoriz="1" />
+        <ship name="PcCrusier1" x="0" y="23" isHoriz="1" />
+        <ship name="PcBattleShip" x="0" y="21" isHoriz="1" />
       </ships>
       <shots>
         <shot x="0" y="0" />

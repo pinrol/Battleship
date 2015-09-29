@@ -20,15 +20,7 @@ public class StateManager : MonoBehaviour {
 		if (activeState != null){
 			activeState.StateUpdate ();
 		}
-		if (Input.GetKeyDown("s")) {
-			Debug.Log("input s");
-			xmlManager.SaveGame("savegame.xml");
-		}
-        if (Input.GetKeyDown("l"))
-        {
-            Debug.Log("input l");
-            xmlManager.LoadGame("savegame.xml");
-        }
+		
         Debug.Log (" in statemanager update");
 	}
 	

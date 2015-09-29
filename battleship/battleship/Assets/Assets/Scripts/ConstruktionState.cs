@@ -166,6 +166,7 @@ namespace Assets.Scripts
 	 	private void ComputerShipPlacement( GameObject ship, GameObject tempObject, Vector2 randomisedTile, int listNumber){
 			ship.gameObject.transform.position = tempObject.transform.position;
 
+
 			if (ship.CompareTag("PcSubmarine")) {
 				endTile = ship.gameObject.transform.position;
 				startTile = endTile;

@@ -50,10 +50,11 @@
      <Compile Include="Assets\Scripts\ConstruktionState.cs" />
      <Compile Include="Assets\Scripts\EndState.cs" />
      <Compile Include="Assets\Scripts\GUI.cs" />
-     <Compile Include="Assets\Scripts\GameState.cs" />
+     <Compile Include="Assets\Scripts\GameManger.cs" />
      <Compile Include="Assets\Scripts\IStateBase.cs" />
      <Compile Include="Assets\Scripts\PlaceShips.cs" />
      <Compile Include="Assets\Scripts\PlayState.cs" />
+     <Compile Include="Assets\Scripts\ShotAt.cs" />
      <Compile Include="Assets\Scripts\StateManager.cs" />
      <Compile Include="Assets\Scripts\Tile.cs" />
      <Compile Include="Assets\Scripts\xmlManager.cs" />

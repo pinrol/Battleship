@@ -52,7 +52,7 @@ namespace Assets.Scripts
 
 			validTilesPc = GameObject.Find ("Boards/Board2").GetComponent<Board> ().tilesP2;
 
-			/*GameObject[] PcDestroyer = GameObject.FindGameObjectsWithTag ("PcDestroyer");
+			GameObject[] PcDestroyer = GameObject.FindGameObjectsWithTag ("PcDestroyer");
 			GameObject[] PcCruiser = GameObject.FindGameObjectsWithTag ("PcCruiser");
 			GameObject[] PcBattleship = GameObject.FindGameObjectsWithTag ("PcBattleship");
 			//GameObject tempObject = GameObject.Find(mouseObject.transform.position.x + " , " + mouseObject.transform.position.y);
@@ -67,7 +67,7 @@ namespace Assets.Scripts
 			int listNumber;
 			Vector2 randomisedTile;
 			GameObject tempObject;
-			int checkLength ;
+			//int shipSize ;
 			//PcSubmarine[0].transform.position = GameObject.Find( 15 + " , " + 0).transform.position);
 
 			/*foreach ( GameObject ship in PcBattleship){
@@ -78,48 +78,42 @@ namespace Assets.Scripts
 			List<Vector2> variableValidTiles = new List<Vector2> ();
 			int RandomIsHoriz;
 			Vector2 border = new Vector2 (0, 0);
-			int sum = 0;
+
 			bool isActive;
 
-			 
-			//boardSize = GameObject.Find("Boards/Board2").GetComponent<Board>().size - 1;
-			//Debug.Log ("boardSize=" + boardSize); 
-			int count = 0;
-			foreach (GameObject ship in PcSubmarine) {
-				//Debug.Log(" boardSize in foreach" + boardSize);
 
-//				Debug.Log(count++ + " count");
-//				Debug.Log(ship.name + " shipname");
-				checkLength = ship.GetComponent<PlaceShips> ().shipSize - 1;
-				//checkLength = 0;
+			foreach (GameObject ship in PcCruiser) {
+
+				int shipSize = ship.GetComponent<PlaceShips> ().shipSize;
+
 
 				RandomIsHoriz = (int)Mathf.Round (Random.Range (0, 2));
+
 			
 
-				if (RandomIsHoriz == 0) {
+				if (RandomIsHoriz == 0) { // vertikal
 					ship.GetComponent<PlaceShips> ().isHoriz = false;
-					border = new Vector2 (0, checkLength);
-				} else {
-					border = new Vector2 (checkLength, 0);
+					border = new Vector2 (0, shipSize - 1);
+					var rotation = Quaternion.Euler(0,0,90);
+					ship.gameObject.transform.rotation = Quaternion.Slerp(ship.gameObject.transform.rotation,rotation, Time.deltaTime * 90);
+				} else { // horiz
+					border = new Vector2 (shipSize - 1, 0);
 				}
 
 
 
+
 				Debug.Log ("for (int x = 15; x < " + boardSize + " + 15 - " + border.x + "; x++)");
-				for (int x = 15; x < boardSize + 15 - border.x; x++) {
-					//Debug.Log("this is x: " + x);
-					for (int y = 0; y <= boardSize - border.y; y++) {
-//						Debug.Log("x=" + x + ", y=" + y );
-						//tempObject =  GameObject.Find(x + " , " + y);
+				int boundX = boardSize + 15 - (int)border.x;
+				int boundY = boardSize - (int)border.y;
+				for (int x = 15; x <= boundX; x++) { // loopar x men drar ifrån "border" om skeppet är horisontellt
+					for (int y = 0; y <= boundY; y++) { // loopar y men drar ifrån "border" om skeppet är vertikalt
 
-						if (true) {
-							//if(ship.GetComponent<PlaceShips>().isHoriz){
+						if(ship.GetComponent<PlaceShips>().isHoriz){
 							bool isValidPlacement = true;
-							for (int index = 0; index <= ship.GetComponent<PlaceShips>().shipSize; index++) {
-
+							for (int index = 0; index < ship.GetComponent<PlaceShips>().shipSize; index++) {
 								int tempX = x + index;
-								//Debug.Log(GameObject.Find("Boards/Board2/" + tempX + " , " + y).name);
-//								Debug.Log (tempX + " < x, y > " + y); 
+
 								isActive = GameObject.Find ("Boards/Board2/" + tempX + " , " + y).GetComponent<Tile> ().active;
 
 								if (!isActive) {
@@ -131,10 +125,10 @@ namespace Assets.Scripts
 							}
 						} else {
 							bool isValidPlacement = true;
-							for (int index = 0; index <= ship.GetComponent<PlaceShips>().shipSize; index++) {
+							for (int index = 0; index < ship.GetComponent<PlaceShips>().shipSize; index++) {
 
 								int tempY = y + index;
-			//					Debug.Log (x + " < x, y > " + tempY);
+
 								isActive = GameObject.Find ("Boards/Board2/" + x + " , " + tempY).GetComponent<Tile> ().active;
 
 								if (!isActive) {
@@ -152,7 +146,7 @@ namespace Assets.Scripts
 				listNumber = Random.Range (0, variableValidTiles.Count);
 
 				randomisedTile = variableValidTiles [listNumber];
-				//Debug.Log ("this is length of variableTiles: " + variableValidTiles.Count);
+
 
 				tempObject = GameObject.Find (variableValidTiles [listNumber].x + " , " + variableValidTiles [listNumber].y);
 				ComputerShipPlacement (ship, tempObject, randomisedTile, listNumber);
@@ -167,10 +161,14 @@ namespace Assets.Scripts
 			ship.gameObject.transform.position = tempObject.transform.position;
 
 
-			if (ship.CompareTag("PcSubmarine")) {
+			if (ship.CompareTag ("PcSubmarine")) {
 				endTile = ship.gameObject.transform.position;
 				startTile = endTile;
+			} else {
+				endTile = ship.transform.Find("end").position;
+				startTile = ship.transform.Find("start").position;
 			}
+
 
 
 			
@@ -180,20 +178,15 @@ namespace Assets.Scripts
 			int loopXend;
 			int loopYend;
 			bool isHoriz = ship.GetComponent<PlaceShips>().isHoriz;
-			//boardSize = GameObject.Find("Boards/Board2").GetComponent<Board>().size;
+
 			
 			
-			if(isHoriz) {
-				loopXstart = (int)Mathf.Max(15, randomisedTile.x - 1);
-				loopYstart = (int)Mathf.Max(0, randomisedTile.y - 1);
-				loopXend   = (int)Mathf.Min(boardSize + 15, endTile.x + 1);
-				loopYend   = (int)Mathf.Min(boardSize, endTile.y + 1);
-			} else {
-				loopXstart = (int)Mathf.Max(15, endTile.x - 1);
-				loopYstart = (int)Mathf.Max(0, endTile.y - 1);
-				loopXend   = (int)Mathf.Min(boardSize + 15, startTile.x + 1);
-				loopYend   = (int)Mathf.Min(boardSize, startTile.y + 1);
-			}
+
+			loopXstart = (int)Mathf.Max(15, randomisedTile.x - 1);
+			loopYstart = (int)Mathf.Max(0, randomisedTile.y - 1);
+			loopXend   = (int)Mathf.Min(boardSize + 15, endTile.x + 1);
+			loopYend   = (int)Mathf.Min(boardSize, endTile.y + 1);
+		
 			
 			
 			for (int x = loopXstart; x <= loopXend; x++) {

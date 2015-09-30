@@ -66,12 +66,20 @@ public class xmlManager : MonoBehaviour
 			
 			boardHuman.Element("ships").Add (new XElement ("ship", new XAttribute("name",shipname), new XAttribute("x",xpos), new XAttribute("y",ypos), new XAttribute("isHoriz",isHoriz)));
 		}
-		//OLIVER: lägg ut koordinaterna från skjutna rutor
-		for(int x=0; x < 3; x++) {
+        //OLIVER: lägg ut koordinaterna från skjutna rutor
+        /*List<Vector2> shotList = new List<Vector2>(GameObject.Find("GameManger").GetComponent<GameManger>().shotTiles);
+        
+
+        shotList = GameObject.Find("GameManger").GetComponent<GameManger>().shotTiles;
+        foreach (Vector2 shot in shotList) {
+            boardHuman.Element("shots").Add(new XElement("shot", new XAttribute("x", shot.x), new XAttribute("y", shot.y)));
+        }
+
+		/*for(int x=0; x < 3; x++) {
 			for (int y=0; y < 3; y++) {
 				boardHuman.Element("shots").Add(new XElement("shot", new XAttribute("x",x), new XAttribute("y",y)));
 			}
-		}
+		}*/
 			
 		foreach (GameObject[] PcList in PcLists) {
 			foreach(GameObject Pcship in PcList){
@@ -150,11 +158,11 @@ public class xmlManager : MonoBehaviour
                 }
 
 
-                Debug.Log("board_id=" + board_id + 
+               /* Debug.Log("board_id=" + board_id + 
                         ", name=" + xship.Attribute("name").Value +
                         ", x=" + xship.Attribute("x").Value +
                         ", y=" + xship.Attribute("y").Value +
-                        ", isHoriz=" + xship.Attribute("isHoriz").Value);
+                        ", isHoriz=" + xship.Attribute("isHoriz").Value);*/
             }
         }
         

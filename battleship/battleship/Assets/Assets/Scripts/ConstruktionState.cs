@@ -55,109 +55,113 @@ namespace Assets.Scripts
 			GameObject[] PcDestroyer = GameObject.FindGameObjectsWithTag ("PcDestroyer");
 			GameObject[] PcCruiser = GameObject.FindGameObjectsWithTag ("PcCruiser");
 			GameObject[] PcBattleship = GameObject.FindGameObjectsWithTag ("PcBattleship");
-			//GameObject tempObject = GameObject.Find(mouseObject.transform.position.x + " , " + mouseObject.transform.position.y);
-			///*if(this.name == "PcSubmarine"){
-			//	endTile = this.transform.position;
-			//}else{
-			//	endTile = GameObject.Find(this.name+"/end").transform.position;
-			//}*/
 
 			GameObject[] PcSubmarine = GameObject.FindGameObjectsWithTag ("PcSubmarine");
 
-			int listNumber;
-			Vector2 randomisedTile;
-			GameObject tempObject;
-			//int shipSize ;
-			//PcSubmarine[0].transform.position = GameObject.Find( 15 + " , " + 0).transform.position);
+			foreach (GameObject ship in PcBattleship) {
+				ComputerShipPlacement(ship);
 
-			/*foreach ( GameObject ship in PcBattleship){
-				startTile = GameObject.Find(ship.name+"/start");
-			}*/
-
-
-			List<Vector2> variableValidTiles = new List<Vector2> ();
-			int RandomIsHoriz;
-			Vector2 border = new Vector2 (0, 0);
-
-			bool isActive;
-
-
+			}
 			foreach (GameObject ship in PcCruiser) {
-
-				int shipSize = ship.GetComponent<PlaceShips> ().shipSize;
-
-
-				RandomIsHoriz = (int)Mathf.Round (Random.Range (0, 2));
-
-			
-
-				if (RandomIsHoriz == 0) { // vertikal
-					ship.GetComponent<PlaceShips> ().isHoriz = false;
-					border = new Vector2 (0, shipSize - 1);
-					var rotation = Quaternion.Euler(0,0,90);
-					ship.gameObject.transform.rotation = Quaternion.Slerp(ship.gameObject.transform.rotation,rotation, Time.deltaTime * 90);
-				} else { // horiz
-					border = new Vector2 (shipSize - 1, 0);
-				}
-
-
-
-
-				Debug.Log ("for (int x = 15; x < " + boardSize + " + 15 - " + border.x + "; x++)");
-				int boundX = boardSize + 15 - (int)border.x;
-				int boundY = boardSize - (int)border.y;
-				for (int x = 15; x <= boundX; x++) { // loopar x men drar ifrån "border" om skeppet är horisontellt
-					for (int y = 0; y <= boundY; y++) { // loopar y men drar ifrån "border" om skeppet är vertikalt
-
-						if(ship.GetComponent<PlaceShips>().isHoriz){
-							bool isValidPlacement = true;
-							for (int index = 0; index < ship.GetComponent<PlaceShips>().shipSize; index++) {
-								int tempX = x + index;
-
-								isActive = GameObject.Find ("Boards/Board2/" + tempX + " , " + y).GetComponent<Tile> ().active;
-
-								if (!isActive) {
-									isValidPlacement = false;
-								} 							
-							}
-							if (isValidPlacement) {
-								variableValidTiles.Add (new Vector2 (x, y));
-							}
-						} else {
-							bool isValidPlacement = true;
-							for (int index = 0; index < ship.GetComponent<PlaceShips>().shipSize; index++) {
-
-								int tempY = y + index;
-
-								isActive = GameObject.Find ("Boards/Board2/" + x + " , " + tempY).GetComponent<Tile> ().active;
-
-								if (!isActive) {
-									isValidPlacement = false;
-								} 
-							}
-							if (isValidPlacement) {
-								variableValidTiles.Add (new Vector2 (x, y));
-							}
-						}
-					}
-				}
-			
-
-				listNumber = Random.Range (0, variableValidTiles.Count);
-
-				randomisedTile = variableValidTiles [listNumber];
-
-
-				tempObject = GameObject.Find (variableValidTiles [listNumber].x + " , " + variableValidTiles [listNumber].y);
-				ComputerShipPlacement (ship, tempObject, randomisedTile, listNumber);
-				variableValidTiles.Clear ();
+				ComputerShipPlacement(ship);
+				
+			}
+			foreach (GameObject ship in PcDestroyer) {
+				ComputerShipPlacement(ship);
+				
+			}
+			foreach (GameObject ship in PcSubmarine) {
+				ComputerShipPlacement(ship);
+				
 			}
 
 		}
-		
+
+		private void ComputerShipPlacement (GameObject ship) {
+
+			Vector2 border = new Vector2 (0, 0);
+			bool isActive;
+			List<Vector2> variableValidTiles = new List<Vector2> ();
+			GameObject tempObject;
+			int listNumber;
+			Vector2 randomisedTile;
+
+			int shipSize = ship.GetComponent<PlaceShips> ().shipSize;
+			
+			int RandomIsHoriz = (int)Mathf.Round (Random.Range (0, 2));
+			
+			if (RandomIsHoriz == 0) { // vertikal
+				ship.GetComponent<PlaceShips> ().isHoriz = false;
+				border = new Vector2 (0, shipSize - 1);
+				var rotation = Quaternion.Euler(0,0,90);
+				ship.gameObject.transform.rotation = Quaternion.Slerp(ship.gameObject.transform.rotation,rotation, Time.deltaTime * 90);
+			} else { // horiz
+				border = new Vector2 (shipSize - 1, 0);
+			}
+			
+			Debug.Log ("for (int x = 15; x < " + boardSize + " + 15 - " + border.x + "; x++)");
+			int boundX = boardSize + 15 - (int)border.x;
+			int boundY = boardSize - (int)border.y;
+			for (int x = 15; x <= boundX; x++) { // loopar x men drar ifrån "border" om skeppet är horisontellt
+				for (int y = 0; y <= boundY; y++) { // loopar y men drar ifrån "border" om skeppet är vertikalt
+					
+					if(ship.GetComponent<PlaceShips>().isHoriz){
+						bool isValidPlacement = true;
+						for (int index = 0; index < ship.GetComponent<PlaceShips>().shipSize; index++) {
+							int tempX = x + index;
+							
+							isActive = GameObject.Find ("Boards/Board2/" + tempX + " , " + y).GetComponent<Tile> ().active;
+							
+							if (!isActive) {
+								isValidPlacement = false;
+							} 							
+						}
+						if (isValidPlacement) {
+							variableValidTiles.Add (new Vector2 (x, y));
+						}
+					} else {
+						bool isValidPlacement = true;
+						for (int index = 0; index < ship.GetComponent<PlaceShips>().shipSize; index++) {
+							
+							int tempY = y + index;
+							
+							isActive = GameObject.Find ("Boards/Board2/" + x + " , " + tempY).GetComponent<Tile> ().active;
+							
+							if (!isActive) {
+								isValidPlacement = false;
+							} 
+						}
+						if (isValidPlacement) {
+							variableValidTiles.Add (new Vector2 (x, y));
+						}
+					}
+				}
+			}
+			
+			
+			listNumber = Random.Range (0, variableValidTiles.Count);
+			
+			randomisedTile = variableValidTiles [listNumber];
+			
+			
+			tempObject = GameObject.Find (variableValidTiles [listNumber].x + " , " + variableValidTiles [listNumber].y);
+			ComputerShipManageBoard (ship, tempObject, randomisedTile, listNumber);
+			
+			
+			variableValidTiles.Clear ();
+
+
+
+
+		}
 
 		
-	 	private void ComputerShipPlacement( GameObject ship, GameObject tempObject, Vector2 randomisedTile, int listNumber){
+	 	private void ComputerShipManageBoard( GameObject ship, GameObject tempObject, Vector2 randomisedTile, int listNumber){
+
+
+
+
+
 			ship.gameObject.transform.position = tempObject.transform.position;
 
 
@@ -193,9 +197,12 @@ namespace Assets.Scripts
 				for (int y = loopYstart; y <= loopYend; y++) {
 					 
 
-					validTilesPc.RemoveAt(listNumber);
 
 					tempObject = GameObject.Find(x + " , " + y);
+					if(tempObject.GetComponent<Tile>().active == true){
+						validTilesPc.RemoveAt(listNumber);
+					}
+					
 					tempObject.GetComponent<Tile>().active = false;
 					tempObject.GetComponentInChildren<SpriteRenderer>().color = Color.red;
 

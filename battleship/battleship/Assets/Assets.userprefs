@@ -1,10 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ConstruktionState.cs">
     <Files>
       <File FileName="Assets\Scripts\xmlManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Board.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ConstruktionState.cs" Line="176" Column="58" />
+      <File FileName="Assets\Scripts\ConstruktionState.cs" Line="181" Column="4" />
       <File FileName="Assets\Scripts\EndState.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GameManger.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\PlaceShips.cs" Line="1" Column="1" />
@@ -15,8 +15,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Users\User\Documents\GitHub\Battleship\battleship\battleship\Assets\Assets\Scripts\ConstruktionState.cs" line="87" />
-      <Breakpoint file="C:\Users\User\Documents\GitHub\Battleship\battleship\battleship\Assets\Assets\Scripts\ConstruktionState.cs" line="170" />
+      <Breakpoint file="C:\Users\User\Documents\GitHub\Battleship\battleship\battleship\Assets\Assets\Scripts\ConstruktionState.cs" line="163" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

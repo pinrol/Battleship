@@ -16,6 +16,7 @@ public class Board : MonoBehaviour {
 	public List<Vector2> tilesP2 = new List<Vector2>();
 	public Vector2 position;
 	public bool active = true;
+    public bool shotAt = false;
     
     
 	public void setup(){

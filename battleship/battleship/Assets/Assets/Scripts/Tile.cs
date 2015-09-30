@@ -32,7 +32,11 @@ public class Tile : Board{
 		Debug.Log (position);
 
 
-		if (hidden && gameManager.GetComponent<GameManger>().play == true && gameManager.GetComponent<GameManger>().playerTurn == true){
+		if (hidden && gameManager.GetComponent<GameManger>().play == true && gameManager.GetComponent<GameManger>().playerTurn == true && shotAt == false){
+            shotAt = true;
+            if(this.tag != "ShipTile") {
+                GameObject.Find(this.transform.position.x + " , " + this.transform.position.y).GetComponentInChildren<SpriteRenderer>().color = Color.green;
+            }
             this.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.green;
             gameManager.GetComponent<GameManger>().playerTurn = false;
 			audio.PlayOneShot (soundFile, 1f);

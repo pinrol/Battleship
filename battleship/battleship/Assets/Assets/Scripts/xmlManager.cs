@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 public class xmlManager : MonoBehaviour 
 {
-
+    
 
 
 	public static void SaveGame (string fileName) {
@@ -18,7 +18,7 @@ public class xmlManager : MonoBehaviour
 
 		//string[] shiplist={"submarine","destroyer","cruiser","battleship"};
 		GameObject[] shipList = GameObject.FindGameObjectsWithTag ("Ship");
-
+        
 
 		List<GameObject[]> PcLists = new List<GameObject[]>();
 
@@ -106,9 +106,33 @@ public class xmlManager : MonoBehaviour
 
 	public static void LoadGame (string fileName) {
         Debug.Log("Load Game");
-		
+        GameObject[] tiles = GameObject.FindGameObjectsWithTag("WaterTile");
+        GameObject[] shipTiles = GameObject.FindGameObjectsWithTag("ShipTile");
 
-		XDocument xdoc = XDocument.Load (fileName);
+        List<GameObject[]> PcLists = new List<GameObject[]>();
+
+        GameObject[] PcSubmarine = GameObject.FindGameObjectsWithTag("PcSubmarine");
+        GameObject[] PcDestroyer = GameObject.FindGameObjectsWithTag("PcDestroyer");
+        GameObject[] PcCruiser = GameObject.FindGameObjectsWithTag("PcCruiser");
+        GameObject[] PcBattleship = GameObject.FindGameObjectsWithTag("PcBattleship");
+        PcLists.Add(PcSubmarine);
+        PcLists.Add(PcDestroyer);
+        PcLists.Add(PcCruiser);
+        PcLists.Add(PcBattleship);
+        PcLists.Add(tiles);
+        PcLists.Add(shipTiles);
+
+
+        foreach (GameObject[] List in PcLists)
+        {
+            foreach (GameObject ship in List)
+            {
+                ship.gameObject.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+
+            }
+        }
+
+        XDocument xdoc = XDocument.Load (fileName);
         
         foreach(XElement xboard in xdoc.Elements("savegame").Elements("boards").Elements("board")) {
             string board_id = xboard.Attribute("id").Value;
